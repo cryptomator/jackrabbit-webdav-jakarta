@@ -3,8 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.cryptomator</groupId>
 	<artifactId>jackrabbit-webdav-jakarta</artifactId>
-	<!-- keep in sync with ${jackrabbit.version} -->
-	<version>2.22.4</version>
+	<!-- keep in sync with ${jackrabbit.version}; release version is set from the git tag during CI -->
+	<version>2.22.4-SNAPSHOT</version>
 	<name>Apache Jackrabbit WebDAV Library (jakarta.servlet repackaging)</name>
 	<description>org.apache.jackrabbit:jackrabbit-webdav transformed from javax.servlet to jakarta.servlet via Eclipse Transformer. Interim artifact until Jackrabbit ships jakarta support (JCR-4892).</description>
 	<url>https://github.com/cryptomator/jackrabbit-webdav-jakarta</url>
@@ -117,6 +117,21 @@
 							</artifact>
 						</configuration>
 					</execution>
+					<execution>
+						<!-- required by Maven Central; transformed from the upstream javadoc jar -->
+						<id>javadoc-jar</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<artifact>
+								<groupId>org.apache.jackrabbit</groupId>
+								<artifactId>jackrabbit-webdav</artifactId>
+								<version>${jackrabbit.version}</version>
+								<classifier>javadoc</classifier>
+							</artifact>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>
@@ -171,7 +186,7 @@
 				<repository>
 					<id>github</id>
 					<name>GitHub Packages</name>
-					<url>https://maven.pkg.github.com/cryptomator/cryptolib</url>
+					<url>https://maven.pkg.github.com/cryptomator/jackrabbit-webdav-jakarta</url>
 				</repository>
 			</distributionManagement>
 		</profile>
