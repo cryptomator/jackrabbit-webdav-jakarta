@@ -10,7 +10,7 @@ There is no source code in this repository. The build resolves the upstream `jac
 
 ## Versioning
 
-The project version mirrors the upstream Jackrabbit version being transformed (`${jackrabbit.version}` in the POM — keep both in sync). Repackaging-only fixes would be published as e.g. `2.22.3-1`.
+The project version mirrors the upstream Jackrabbit version being transformed (`${jackrabbit.version}` in the POM — keep both in sync). Repackaging-only fixes would be published as e.g. `2.22.4-1`.
 
 ## Known caveats
 
