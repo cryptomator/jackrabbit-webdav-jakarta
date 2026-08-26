@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.cryptomator</groupId>
+	<artifactId>jackrabbit-webdav-jakarta</artifactId>
+	<!-- keep in sync with ${jackrabbit.version} -->
+	<version>2.22.4</version>
+	<name>Apache Jackrabbit WebDAV Library (jakarta.servlet repackaging)</name>
+	<description>org.apache.jackrabbit:jackrabbit-webdav transformed from javax.servlet to jakarta.servlet via Eclipse Transformer. Interim artifact until Jackrabbit ships jakarta support (JCR-4892).</description>
+	<url>https://github.com/cryptomator/jackrabbit-webdav-jakarta</url>
+
+	<scm>
+		<connection>scm:git:git@github.com:cryptomator/jackrabbit-webdav-jakarta.git</connection>
+		<developerConnection>scm:git:git@github.com:cryptomator/jackrabbit-webdav-jakarta.git</developerConnection>
+		<url>git@github.com:cryptomator/jackrabbit-webdav-jakarta.git</url>
+	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<jackrabbit.version>2.22.4</jackrabbit.version>
+
+		<!-- mvn plugins -->
+		<transformer.version>1.0.0</transformer.version>
+	</properties>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>Armin Schrenk</name>
+			<email>armin.schrenk@skymatic.de</email>
+			<timezone>+1</timezone>
+			<organization>Skymatic GmbH</organization>
+			<organizationUrl>https://skymatic.de</organizationUrl>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<!-- runtime dependencies of the repackaged jackrabbit-webdav, mirroring its own pom
+		     (javax.servlet-api replaced by jakarta.servlet-api; jackrabbit-webdav itself is
+		     intentionally NOT a dependency, its transformed classes ARE this artifact) -->
+		<dependency>
+			<groupId>jakarta.servlet</groupId>
+			<artifactId>jakarta.servlet-api</artifactId>
+			<version>6.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>2.0.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.14</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.16</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>2.0.17</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.transformer</groupId>
+				<artifactId>transformer-maven-plugin</artifactId>
+				<version>${transformer.version}</version>
+				<extensions>true</extensions>
+				<configuration>
+					<rules>
+						<jakartaDefaults>true</jakartaDefaults>
+					</rules>
+				</configuration>
+				<executions>
+					<execution>
+						<id>default-jar</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<artifact>
+								<groupId>org.apache.jackrabbit</groupId>
+								<artifactId>jackrabbit-webdav</artifactId>
+								<version>${jackrabbit.version}</version>
+							</artifact>
+						</configuration>
+					</execution>
+					<execution>
+						<id>sources-jar</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<artifact>
+								<groupId>org.apache.jackrabbit</groupId>
+								<artifactId>jackrabbit-webdav</artifactId>
+								<version>${jackrabbit.version}</version>
+								<classifier>sources</classifier>
+							</artifact>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
