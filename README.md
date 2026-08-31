@@ -18,11 +18,9 @@ The jar is a proper named module:
 requires org.apache.jackrabbit.webdav;
 ```
 
+The offical jackrabbit-webdav library is **not modularized**. Once this happens, this dependency can be replaced.
+
 The module is named after its root exported package, per JPMS convention, so that migrating to an official jakarta-capable `org.apache.jackrabbit:jackrabbit-webdav` needs no change to consumer module descriptors. All `org.apache.jackrabbit.webdav.*` packages are exported. `jakarta.servlet`, `java.xml` and the two httpcomponents modules are `requires transitive` because they appear in exported API signatures; `org.slf4j` is not.
-
-Note that the two artifacts can never sit on the module path together: both contain the same packages, so the split-package rule rejects the combination regardless of module naming. When you migrate, drop this dependency.
-
-Classpath consumers are unaffected — `module-info.class` is inert outside the module path.
 
 ## Versioning
 
