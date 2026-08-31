@@ -1,0 +1,39 @@
+/*
+ * Module descriptor for the transformed jackrabbit-webdav jar.
+ *
+ * It is NOT compiled by the normal compile phase -- the packages it exports live only in the transformed artifact, not in src/.
+ * Named .txt rather than .java so that IDEs do not try to resolve it as project source
+ *
+ * Derived from `jdeps --generate-module-info` over the transformed jar; keep in sync with
+ * the <dependencies> block in pom.xml.
+ */
+module org.apache.jackrabbit.webdav {
+
+	requires org.slf4j;
+
+	// exposed in public API signatures, hence transitive
+	requires transitive jakarta.servlet;
+	requires transitive java.xml;
+	// automatic modules (Automatic-Module-Name only); this is what keeps the module jlink-incompatible
+	requires transitive org.apache.httpcomponents.httpclient;
+	requires transitive org.apache.httpcomponents.httpcore;
+
+	exports org.apache.jackrabbit.webdav;
+	exports org.apache.jackrabbit.webdav.bind;
+	exports org.apache.jackrabbit.webdav.client.methods;
+	exports org.apache.jackrabbit.webdav.header;
+	exports org.apache.jackrabbit.webdav.io;
+	exports org.apache.jackrabbit.webdav.lock;
+	exports org.apache.jackrabbit.webdav.observation;
+	exports org.apache.jackrabbit.webdav.ordering;
+	exports org.apache.jackrabbit.webdav.property;
+	exports org.apache.jackrabbit.webdav.search;
+	exports org.apache.jackrabbit.webdav.security;
+	exports org.apache.jackrabbit.webdav.security.report;
+	exports org.apache.jackrabbit.webdav.server;
+	exports org.apache.jackrabbit.webdav.transaction;
+	exports org.apache.jackrabbit.webdav.util;
+	exports org.apache.jackrabbit.webdav.version;
+	exports org.apache.jackrabbit.webdav.version.report;
+	exports org.apache.jackrabbit.webdav.xml;
+}
