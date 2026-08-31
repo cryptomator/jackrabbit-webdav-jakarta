@@ -1,12 +1,12 @@
 # jackrabbit-webdav-jakarta
 
-`org.apache.jackrabbit:jackrabbit-webdav`, mechanically transformed from `javax.servlet` to `jakarta.servlet` at build time using the [Eclipse Transformer](https://github.com/eclipse-transformer/transformer) Maven plugin.
+`org.apache.jackrabbit:jackrabbit-webdav`, mechanically transformed from `javax.servlet` to `jakarta.servlet` and modularized.
 
 This is an **interim artifact**: Apache Jackrabbit has not yet released jakarta-compatible artifacts. Upstream migration is tracked in [JCR-4892](https://issues.apache.org/jira/browse/JCR-4892); as of May 2026 the plan is to switch the next stable branch (2.24/3.0) entirely to `jakarta.servlet` + Java 17. Once such a release exists, consumers should switch back to the official artifact — the package names are unchanged (`org.apache.jackrabbit.webdav.*`), so this is a drop-in.
 
 ## How it works
 
-There is no source code in this repository. The build resolves the upstream `jackrabbit-webdav` jar (and its `sources` jar) and runs the Eclipse Transformer's `jakartaDefaults` rules over it, producing this project's main and sources artifacts. The POM re-declares upstream's runtime dependencies, with `javax.servlet-api` replaced by `jakarta.servlet-api`.
+There is no real source code in this repository. The build resolves the upstream `jackrabbit-webdav` jar (and its `sources` jar) and runs the [Eclipse Transformer](https://github.com/eclipse-transformer/transformer) Maven plugin's `jakartaDefaults` rules over it, producing this project's main and sources artifacts. The POM re-declares upstream's runtime dependencies, with `javax.servlet-api` replaced by `jakarta.servlet-api`.
 
 Upstream ships no module descriptor. After the transform, the [ModiTect](https://github.com/moditect/moditect) Maven plugin compiles [`src/main/moditect/module-info.txt`](src/main/moditect/module-info.txt) and injects it into the jar root — the transformed classes are Java 11 bytecode, so no multi-release layout is needed.
 
