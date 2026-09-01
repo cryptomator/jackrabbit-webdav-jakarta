@@ -14,9 +14,14 @@ module org.apache.jackrabbit.webdav {
 	// exposed in public API signatures, hence transitive
 	requires transitive jakarta.servlet;
 	requires transitive java.xml;
-	// automatic modules (Automatic-Module-Name only); this is what keeps the module jlink-incompatible
-	requires transitive org.apache.httpcomponents.httpclient;
-	requires transitive org.apache.httpcomponents.httpcore;
+
+	// Automatic modules (Automatic-Module-Name only)
+	//
+	// reachable only from the client-side classes org.apache.jackrabbit.webdav.client.methods 
+	// and util.LinkHeaderFieldParser). Declared static so that server-only consumers can exclude them enabling jlink
+	// Consumers of the client part must put both back on the module path themselves.
+	requires transitive static org.apache.httpcomponents.httpclient;
+	requires transitive static org.apache.httpcomponents.httpcore;
 
 	exports org.apache.jackrabbit.webdav;
 	exports org.apache.jackrabbit.webdav.bind;
